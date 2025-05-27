@@ -10,6 +10,15 @@ use Illuminate\Validation\ValidationException;
 
 class AuthUserController extends Controller
 {
+    public function getUser()
+    {
+        $user = User::all();
+        return response()->json([
+            'status' => 'success',
+            'user' => $user,
+            'message' => 'Get user data success'
+        ]);
+    }
     public function register(Request $request)
     {
         $request->validate([
@@ -26,8 +35,10 @@ class AuthUserController extends Controller
 
         $token = $user->createToken('main')->plainTextToken;
         return response()->json([
+            'status' => 'success',
             'user' => $user,
             'token' => $token,
+            'message' => 'User register successfully'
         ]);
     }
     public function login(Request $request)
@@ -47,8 +58,10 @@ class AuthUserController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json([
+            'status' => 'success',
             'user' => $user,
             'token' => $token,
+            'message' => 'Logged in successfully',
         ]);
     }
 
